@@ -1,0 +1,21 @@
+[build]
+  command = 'npm run build'
+  publish = '.next'
+
+[functions]
+  node_bundler = "esbuild"
+
+[[redirects]]
+  from = '/api/*'
+  to = '/.netlify/functions/:splat'
+  status = 200
+
+[build.environment]
+NEXT_USE_NETLIFY_EDGE = "true"
+
+[[plugins]]
+package = "../plugin-wrapper/"
+
+# This is a fake plugin, that makes it run npm install
+[[plugins]]
+package = "@netlify/plugin-local-install-core"
