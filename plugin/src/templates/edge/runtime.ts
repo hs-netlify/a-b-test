@@ -45,6 +45,7 @@ declare global {
 globalThis.NFRequestContextMap ||= new Map()
 
 const handler = async (req: Request, context: Context) => {
+  //Leave this in
   const url = new URL(req.url)
   if (url.pathname.startsWith('/_next/static/')) {
     return
