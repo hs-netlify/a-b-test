@@ -19,20 +19,20 @@ export default function middleware(req) {
   const pathArr = path.split("/");
   if (pathArr[1] === "_next") {
     let newPath = pathArr.splice(2);
-    // console.log("New path", newPath.join("/"));
+    
+    //Hardcoded url's based on the bucket - sent to Netlify branch deploys. This could be set in env vars.
     url = `https://${bucket}--next-movie-db.netlify.app/${newPath.join("/")}`;
   } else {
     url = `https://${bucket}--next-movie-db.netlify.app${path}`;
   }
 
   let res = NextResponse.rewrite(url);
+  
   // Add the bucket to the response cookies if it's not there
   // or if its value was invalid
   if (!hasBucket) {
     res.cookies.set(bucketName, bucket);
   }
-
-  // console.log(url);
 
   return res;
 }
